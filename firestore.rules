@@ -1,0 +1,25 @@
+rules_version = '2';
+
+// Every document lives under /users/{uid}. A signed-in account can read and
+// write its own subtree and nothing else — there is no cross-user path.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isOwner(uid) {
+      return request.auth != null && request.auth.uid == uid;
+    }
+
+    match /users/{uid} {
+      allow read, write: if isOwner(uid);
+
+      match /{document=**} {
+        allow read, write: if isOwner(uid);
+      }
+    }
+
+    // Anything outside a user's own subtree is closed.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

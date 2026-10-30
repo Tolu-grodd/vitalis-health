@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#1c5cab" />
+    <meta
+      name="description"
+      content="Vitalis: track meals and calories component by component, log blood pressure, water, sleep and medication, plan your week and record every workout."
+    />
+    <title>Vitalis Health</title>
+
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+
+    <!-- iOS has no manifest support, so standalone mode is opted into here. -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Vitalis" />
+    <meta name="application-name" content="Vitalis" />
+
+    <script>
+      // Apply the saved theme before first paint so there is no flash.
+      try {
+        var m = JSON.parse(localStorage.getItem('vitalis.theme') || '"system"')
+        if (m === 'light' || m === 'dark') document.documentElement.setAttribute('data-theme', m)
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
